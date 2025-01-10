@@ -1,0 +1,18 @@
+* Voltage Divider Circuit
+.param Vin=1
+.param R1=1000
+.param R2=1000
+
+Vin in 0 dc {Vin}
+R1 in mid {R1}
+R2 mid 0 {R2}
+
+.control
+    tran 0.1ms 5ms
+    run
+    * Measure and print the average mid voltage
+    measure tran Vout AVG V(mid)
+    print V(mid) > output.txt
+.endc
+
+.end
