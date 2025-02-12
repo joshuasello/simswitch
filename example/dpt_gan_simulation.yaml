@@ -1,0 +1,42 @@
+setup:
+  #  Stores the file path to the LTSpice executable. Defaults to local coppy if non specified
+#  ltspice_executable_file_path: C:\Users\joshu\Development\university-development\switchsim\res\LTspice.exe
+
+  output_field_mapping:
+    time: time
+    dut_gate_voltage: V(dut_gate_voltage)
+    dut_drain_voltage: V(dut_drain_voltage)
+    dut_source_voltage: V(dut_source_voltage)
+    dut_drain_current: [Ix(dut:DRAININ), Ix(dut:D)]
+
+  default_parameters:
+    leading_duration: 5e-6
+    lagging_duration: 5e-6
+    load_supply_voltage: 400
+    load_test_current: 4
+    first_pulse_duration: 50e-6
+    second_pulse_duration: 5e-6
+    off_duration: 5e-6
+    on_gate_resistance: 10
+    dut_case_temperature: 25
+    max_timestep: 500e-7
+
+runs:
+  double_pulse_test_gan_gs66516t:
+    source_file_path: C:\Users\joshu\Development\university-development\switchsim\example\double_pulse_test_gan_gs66516t.asc
+    parameters_to_sweep:
+      load_test_current:
+        start: 5
+        end: 25
+        step: 5
+  double_pulse_test_gan_v22tc65s1a1:
+    source_file_path: C:\Users\joshu\Development\university-development\switchsim\example\double_pulse_test_gan_v22tc65s1a1.asc
+    parameters_to_sweep:
+      load_test_current:
+        start: 5
+        end: 25
+        step: 5
+
+results:
+  - turn_on_loss
+  - turn_off_loss

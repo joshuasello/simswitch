@@ -1,0 +1,50 @@
+# DC-DC buck converter config file
+setup:
+  output_field_mapping:
+    time: time
+    dut_gate_voltage: V(dut_gate_voltage)
+    dut_drain_voltage: V(dut_drain_voltage)
+    dut_source_voltage: V(dut_source_voltage)
+    supply_current: I(Vbus)
+    load_current: I(Rl) # NB: LTSpice does this weird thing where they convert the non-component indicator to lower case
+    load_positive_voltage: V(load_positive_voltage)
+    load_negative_voltage: V(load_negative_voltage)
+
+  default_parameters:
+    # Stores the voltage supplied to the load when the DUT is on in volts
+    supply_input_voltage: 400
+    # Stores the current supplied to the load
+    load_current: 20
+    # Stores the allowable current ripple through the inductor
+    current_ripple: 4
+    # Stores the allowable output voltage ripple over the load
+    voltage_ripple: 2
+    # Stores the case temperature of the device under test (DUT) in Celsius
+    dut_case_temperature: 25
+    # Stores the switching frequency of the DUT
+    switching_frequency: 100000
+    # Stores the switching duty-cycle of the DUT
+    duty_cycle: 0.5
+    # Stores the simulation duration
+    duration: 1e-3
+    # Stores the max time interval for each simulation step
+    max_timestep: 100e-9
+
+runs:
+  buck_converter_gan_gs66516t:
+    source_file_path: C:\Users\joshu\Development\university-development\switchsim\example\buck_converter_gan_gs66516t.asc
+    parameters_to_sweep:
+      switching_frequency:
+        start: 100000
+        end: 550000
+        step: 50000
+  buck_converter_gan_v22tc65s1a1:
+    source_file_path: C:\Users\joshu\Development\university-development\switchsim\example\buck_converter_gan_v22tc65s1a1.asc
+    parameters_to_sweep:
+      switching_frequency:
+        start: 100000
+        end: 550000
+        step: 50000
+
+results:
+  - power_efficiency
